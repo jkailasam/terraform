@@ -23,7 +23,3 @@ data "terraform_remote_state" "network" {
 }
 
 */
-
-terraform {
-  backend "s3" {}
-}
