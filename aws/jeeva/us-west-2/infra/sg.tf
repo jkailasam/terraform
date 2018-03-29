@@ -4,7 +4,7 @@ resource "aws_security_group" "bastion" {
   tags {
         Name = "bastion"
   }
-  description = "ONLY HTTP CONNECTION INBOUD"
+  description = "Bastion Security Group"
   vpc_id = "${aws_vpc.vpc0.id}"
 
   ingress {
@@ -35,7 +35,7 @@ resource "aws_security_group" "FrontEnd" {
   tags {
         Name = "FrontEnd"
   }
-  description = "ONLY HTTP CONNECTION INBOUD"
+  description = "Security Group for Frontend Web applications"
   vpc_id = "${aws_vpc.vpc0.id}"
 
   ingress {
@@ -66,7 +66,7 @@ resource "aws_security_group" "mysql" {
   tags {
         Name = "mysql"
   }
-  description = "ONLY tcp CONNECTION INBOUND"
+  description = "Security Group to communicate Frontend with DB"
   vpc_id = "${aws_vpc.vpc0.id}"
   ingress {
       from_port = 3306
@@ -92,12 +92,14 @@ resource "aws_default_security_group" "default" {
       from_port = 0
       to_port = 0
       protocol = "-1"
-      security_groups = ["${aws_vpc.vpc0.default_security_group_id}"]
+      self = true
+      #security_groups = ["${aws_vpc.vpc0.default_security_group_id}"]
   }
   egress {
       from_port = 0
       to_port = 0
       protocol = "-1"
       cidr_blocks = ["0.0.0.0/0"]
+
   }  
 }

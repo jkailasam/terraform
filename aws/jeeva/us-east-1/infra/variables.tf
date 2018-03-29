@@ -1,6 +1,6 @@
 ################ Provicer Info ####################
 variable "profile" {
-  default = "jkailasam"
+  default = "jeeva"
   description = "AWS profile to use authenticate"
 }
 
@@ -10,7 +10,7 @@ variable "credential_file" {
 }
 
 variable "region" {
-  default = "us-west-2"
+  default = "us-east-1"
 }
 
 provider "aws" {
@@ -27,20 +27,20 @@ terraform {
 
 variable "azs" {
   type = "list"
-  default = ["us-west-2a", "us-west-2b", "us-west-2c"]
+  default = ["us-east-1c", "us-east-1d", "us-east-1d"]
 }
 
 variable "cidr" {
   type= "map"
   default = {
-    vpc = "10.20.0.0/20"
-    pri_sn = "10.20.0.0/21"
-    pub_sn = "10.20.8.0/21"
+    vpc = "10.10.0.0/20"
+    pri_sn = "10.10.0.0/21"
+    pub_sn = "10.10.8.0/21"
   }
 }
 
 variable "nat_ip" {
-  default = "10.20.8.10"
+  default = "10.10.8.10"
 }
 
 variable "public_key" {

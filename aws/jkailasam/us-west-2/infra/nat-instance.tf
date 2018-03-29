@@ -91,7 +91,7 @@ resource "aws_instance" "bastion-nat" {
   ami           = "${data.aws_ami.nat_ami.id}"
   instance_type = "t2.nano"
   associate_public_ip_address = "true"
-  subnet_id = "${aws_subnet.vpc0-public-2a.id}"
+  subnet_id = "${aws_subnet.public-subnet.0.id}"
   vpc_security_group_ids = ["${aws_security_group.bastion.id}"]
   key_name = "${aws_key_pair.jkailasam.key_name}"
   private_ip = "${var.nat_ip}"
@@ -107,6 +107,9 @@ resource "aws_instance" "bastion-nat" {
   user_data = <<HEREDOC
   #!/bin/bash
   yum update -y
-  public_ip=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
 HEREDOC
+}
+
+output "public_ip" {
+  value = "${aws_instance.bastion-nat.public_ip}"
 }
